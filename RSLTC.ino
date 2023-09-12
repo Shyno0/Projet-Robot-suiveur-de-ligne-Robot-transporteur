@@ -7,10 +7,10 @@
 */
 
 // Moteur Gauche
-#define PIN_LM 5  // Avance
+#define PIN_LM D6 // Avance
 
 // Moteur Droit
-#define PIN_RM 9  // Avance
+#define PIN_RM D5 // Avance
 
 //#define ERROR_LED /**/
 
