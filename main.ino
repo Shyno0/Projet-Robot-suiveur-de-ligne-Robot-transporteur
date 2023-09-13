@@ -1,7 +1,7 @@
 /*
   Robot suiveur de ligne transporteur de colis
 
-  By Thibaud Gormand
+  By Thib
 
   Last edit 11/09/2023 16:25
 
