@@ -1,5 +1,5 @@
 /*
-Attribution de noms au pins
+Attribution de noms aux PINs
 */
 
 /*Moteurs*/
@@ -46,6 +46,7 @@ void PIN_control(unsigned char PIN, unsigned char velocity) // PIN_control(PIN, 
   }
 }
 
+// Sous programme : Lecture des PINs (Capteurs)
 void read_measurements()
 {
   weight_sensor = analogRead(PIN_WS); // Lecture de la broche D3 (Capteur de poids)
@@ -82,7 +83,7 @@ void stop()
   PIN_control(PIN_RM, 0);
 }
 
-// Sous programme : 
+// Sous programme : Movements du robot (boucle)
 void movements()
 {
   // Si détecte aucune lumière sur les 2 capteurs d'extermité mais seulment au milieu
