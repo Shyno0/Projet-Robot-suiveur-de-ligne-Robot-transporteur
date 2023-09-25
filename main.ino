@@ -40,7 +40,7 @@ void PIN_control(unsigned char PIN, unsigned char velocity) // PIN_control(PIN, 
 // Sous programme : Lecture des PINs (Capteurs)
 void read_measurements()
 {
-  weight_sensor = analogRead(PIN_WS); // Lecture de la broche D3 (Capteur de poids)
+  weight_sensor = digitalRead(PIN_WS); // Lecture de la broche 3 (Capteur de masse)
   middle_sensor = analogRead(PIN_MS); // Lecture de la broche A0 (Capteur d'intensité lumineuse)
   right_sensor = analogRead(PIN_RS);  // Lecture de la broche A1 (Capteur d'intensité lumineuse)
   left_sensor = analogRead(PIN_LS);   // Lecture de la broche A2 (Capteur d'intensité lumineuse)
