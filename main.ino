@@ -5,14 +5,14 @@
 // Moteur Droit
 #define PIN_RM 5
 
-// Capteur de lumière milieu
-#define PIN_MS A0 
-// Capteur de lumière droit
-#define PIN_RS A1 
-// Capteur de lumière gauche
-#define PIN_LS A2
-// Cpateur de masse
+// Capeur de masse
 #define PIN_WS 3
+// Capteur de lumière milieu
+#define PIN_MS 14 
+// Capteur de lumière droit
+#define PIN_RS 15 
+// Capteur de lumière gauche
+#define PIN_LS 16
 
 //#define ERROR_LED --
 
