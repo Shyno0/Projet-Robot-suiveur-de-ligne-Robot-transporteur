@@ -1,37 +1,27 @@
-/*
-Attribution de noms aux PINs
-*/
-
-/*Moteurs*/
+/*Attribution de noms aux PINs*/
 
 // Moteur Gauche
 #define PIN_LM 6
-
 // Moteur Droit
 #define PIN_RM 5
 
-/*Capteurs*/
-
 // Capteur de lumière milieu
 #define PIN_MS A0 
-
 // Capteur de lumière droit
 #define PIN_RS A1 
-
 // Capteur de lumière gauche
 #define PIN_LS A2
-
 // Cpateur de masse
 #define PIN_WS 3
 
-/*Voyants*/
+//#define ERROR_LED --
 
-//#define ERROR_LED /**/
+// Creations de variables
 
-bool weight_sensor;
-unsigned char middle_sensor, left_sensor, right_sensor;    // Variable de stockage des valeurs de luminosité détectés par les capteurs
-const unsigned char sensibility = 10;       // Valeur de la sensibilité entre lumière/ombre
-const unsigned char vel1 = 120, vel2 = 100; // Valeurs des vitesses
+bool weight_sensor; // Booléen - Valeur détecté par le capteur de masse
+unsigned char middle_sensor, left_sensor, right_sensor; // Variable de stockage des valeurs de luminosité détectés par les capteurs
+const unsigned char sensibility = 10;       // Constante - Valeur de la sensibilité entre lumière/ombre
+const unsigned char vel1 = 120, vel2 = 100; // Constantes - Valeurs des vitesses prédéfinies
 
 // Sous programme : Mise en marche ou arrêt des PINs (moteurs) et ajustement de vitesse
 void PIN_control(unsigned char PIN, unsigned char velocity) // PIN_control(PIN, velocity);
@@ -56,6 +46,7 @@ void read_measurements()
   left_sensor = analogRead(PIN_LS);   // Lecture de la broche A2 (Capteur d'intensité lumineuse)
 }
 
+// Sous programmes : Movements du robot
 void forward()
 {
   // Va tout droit
@@ -84,7 +75,7 @@ void stop()
   PIN_control(PIN_RM, 0);
 }
 
-// Sous programme : Movements du robot (boucle)
+// Sous programme : Movements du robot (pathfinding) + conditions [boucle]
 void movements()
 {
   // Si détecte aucune lumière sur les 2 capteurs d'extermité mais seulment au milieu
@@ -132,6 +123,7 @@ void setup()
   pinMode(PIN_WS, INPUT); // Déclare Capteur de Masse
 }
 
+// Programme principal [boucle]
 void loop()
 {
   read_measurements(); // Lit toutes les mesures de tous les capteurs
