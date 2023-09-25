@@ -4,11 +4,27 @@
   Last edit 11/09/2023 16:25
 */
 
+/*Moteurs*/
+
 // Moteur Gauche
-#define PIN_LM D6 // Avance
+#define PIN_LM 6
 
 // Moteur Droit
-#define PIN_RM D5 // Avance
+#define PIN_RM 5
+
+/*Capteurs*/
+
+// Capteur de lumière milieu
+#define PIN_MS A0 
+
+// Capteur de lumière droit
+#define PIN_RS A1 
+
+// Capteur de lumière gauche
+#define PIN_LS A2
+
+// Cpateur de masse
+#define PIN_WS 3
 
 //#define ERROR_LED /**/
 
@@ -32,10 +48,10 @@ void PIN_control(unsigned char PIN, unsigned char velocity) // PIN_control(PIN, 
 
 void read_measurements()
 {
-  weight_sensor = analogRead(D3); // Lecture de la broche D3 (Capteur de poids)
-  middle_sensor = analogRead(A0); // Lecture de la broche A0 (Capteur d'intensité lumineuse)
-  right_sensor = analogRead(A1);  // Lecture de la broche A1 (Capteur d'intensité lumineuse)
-  left_sensor = analogRead(A2);   // Lecture de la broche A2 (Capteur d'intensité lumineuse)
+  weight_sensor = analogRead(PIN_WS); // Lecture de la broche D3 (Capteur de poids)
+  middle_sensor = analogRead(PIN_MS); // Lecture de la broche A0 (Capteur d'intensité lumineuse)
+  right_sensor = analogRead(PIN_RS);  // Lecture de la broche A1 (Capteur d'intensité lumineuse)
+  left_sensor = analogRead(PIN_LS);   // Lecture de la broche A2 (Capteur d'intensité lumineuse)
 }
 
 void forward()
