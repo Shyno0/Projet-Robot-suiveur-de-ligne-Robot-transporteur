@@ -120,15 +120,15 @@ void movements()
 void setup()
 {
   // Declare tous les PINs des moteurs en sortie
-  pinMode(PIN_LM, OUTPUT);
-  pinMode(PIN_RM, OUTPUT);
+  pinMode(PIN_LM, OUTPUT); // Déclare Moteur Gauche
+  pinMode(PIN_RM, OUTPUT); // Déclare Moteur Droit
   //pinMode(ERROR_LED, OUTPUT);
 
   // Declare tous les PINs des capteurs en entrée
-  pinMode(/*Broche*/, INPUT);
-  pinMode(/*Broche*/, INPUT);
-  pinMode(/*Broche*/, INPUT);
-  pinMode(/*Broche*/, INPUT);
+  pinMode(PIN_MS, INPUT); // Déclare Capteur Milieu
+  pinMode(PIN_RS, INPUT); // Déclare Capteur Droit
+  pinMode(PIN_LS, INPUT); // Déclare Capteur Gauche
+  pinMode(PIN_WS, INPUT); // Déclare Capteur de Masse
 }
 
 void loop()
