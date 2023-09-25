@@ -28,7 +28,8 @@ Attribution de noms aux PINs
 
 //#define ERROR_LED /**/
 
-unsigned char weight_sensor, middle_sensor, left_sensor, right_sensor;    // Variable de stockage des valeurs de luminosité détectés par les capteurs
+bool weight_sensor;
+unsigned char middle_sensor, left_sensor, right_sensor;    // Variable de stockage des valeurs de luminosité détectés par les capteurs
 const unsigned char sensibility = 10;       // Valeur de la sensibilité entre lumière/ombre
 const unsigned char vel1 = 120, vel2 = 100; // Valeurs des vitesses
 
