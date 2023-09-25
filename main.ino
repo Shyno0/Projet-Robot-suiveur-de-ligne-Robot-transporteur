@@ -1,7 +1,5 @@
 /*
-  Robot suiveur de ligne transporteur de colis
-
-  Last edit 11/09/2023 16:25
+Attribution de noms au pins
 */
 
 /*Moteurs*/
@@ -25,6 +23,8 @@
 
 // Cpateur de masse
 #define PIN_WS 3
+
+/*Voyants*/
 
 //#define ERROR_LED /**/
 
