@@ -34,30 +34,21 @@ void loop()
   cmadd = 0;
   cdadd = 0;
 
-  for(i=20; i<0; i--)
+  for(i=50; i>0; i--)
   {
     cg = analogRead(A0);
-    cgadd = cgadd+cg;
-    Serial.print(cgadd);
-    delay(1);
-  }
-  cgadd = cgadd/20;
-
-  for(i=20; i<0; i--)
-  {
     cm = analogRead(A1);
-    cmadd = cmadd + cm;
-    delay(1);
-  }
-  cmadd = cmadd/20;
-
-  for(i=20; i<0; i--)
-  {
     cd = analogRead(A2);
+    /*Serial.print(cgadd);
+    Serial.print("\n\n");*/
+    cmadd = cmadd+cm;
+    cgadd = cgadd+cg;
     cdadd = cdadd+cd;
     delay(1);
   }
-  cdadd = cdadd/20;
+  cgadd = cgadd/50;
+  cmadd = cmadd/50;
+  cdadd = cdadd/50;
   
   if(cgadd<=25){
     digitalWrite(LEDg, HIGH);} 
@@ -78,5 +69,5 @@ void loop()
   Serial.print("\nCapteur droit  : ");  
   Serial.print(cdadd);
   Serial.print("\n\n");
-  delay(600);
+  delay(200);
 }
