@@ -35,7 +35,7 @@ char i; // Valeur pour compteur
 void setup()
 {
   vel1 = (vel2*1.2);
-  //Tests
+  //Tests (display)
   Serial.begin(9600);
   // Declare tous les PINs des moteurs en sortie
   pinMode(PIN_LM, OUTPUT); // Déclare Moteur Gauche
@@ -47,65 +47,81 @@ void setup()
   pinMode(PIN_RS, INPUT); // Déclare Capteur Droit
   pinMode(PIN_LS, INPUT); // Déclare Capteur Gauche
   pinMode(PIN_WS, INPUT); // Déclare Capteur de Masse
+
+  // Declare tous les PINs des LEDs en sortie
+  pinMode(LED_LS, OUTPUT);
+  pinMode(LED_MS, OUTPUT);
+  pinMode(LED_RS, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 // Programme principal [boucle]
 void loop()
 {
   read_measurements(); // Lit toutes les mesures de tous les capteurs
+  display_measurments();
   
   /*Le robot se deplace du point A au point B avec une charge*/
   if(point == 0)
   {
     if(weight_sensor == 0) // Si le capteur capte une charge
-    for (i=30; i>0; i--)   // Attendre 3s en verifiant que la charge est toujours presente [boucle]
     {
-      delay(100); // Attendre 100ms
-      read_measurements();
-      if(weight_sensor != 0) {break;} // Si le capteur ne capte plus la charge, alors sort de la boucle
+      for (i=30; i>0; i--)   // Attendre 3s en verifiant que la charge est toujours presente
+      {
+        delay(100); // Attendre 100ms
+        read_measurements();
+        display(i);
+        if(weight_sensor != 0) {break;} // Si le capteur ne capte plus la charge, alors sort de la boucle
+      }
+      if(i == 0)
+      {
+        forward();   // Avance
+        delay(500);  // Attendre 0.5s
+        stop();      // Stop
+        read_measurements(); 
+        while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) && (weight_sensor == 0)) // Tant que l'un des 3 capteur voit de la lumière + porte une charge
+        {
+          movements(); // Mets en movements le robot
+          read_measurements();
+          display_measurments();
+        }
+        stop();
+        while(weight_sensor == 0) // Tant que le capteur capte une charge
+        {
+          // Ne rien faire/Attendre action humaine
+          read_measurements();
+        }
+        point = 1;
+      }
     }
-    if(i == 0)
-    forward();   // Avance
-    delay(500);  // Attendre 0.5s
-    stop();      // Stop
-    read_measurements(); 
-    while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) && (weight_sensor == 0)) // Tant que l'un des 3 capteur voit de la lumière + porte une charge
-    {
-      movements(); // Mets en movements le robot
-      read_measurements();
-      display_measurments();
-    }
-    stop();
-    while(weight_sensor == 0) // Tant que le capteur capte une charge
-    {
-      // Ne rien faire/Attendre action humaine
-      read_measurements();
-    }
-    point = 1;
   }
 
   /*Le robot se deplace du point B au point A sans charge*/
-  if(point == 1)
+  else if(point == 1)
   {
     if(weight_sensor == 1) // Si le capteur capte une charge
-    for (i=30; i>0; i--)   // Attendre 3s en verifiant que la charge n'est pas presente [boucle]
     {
-      delay(100); // Attendre 100ms
-      read_measurements();
-      if(weight_sensor != 1) {break;} // Si le capteur capte une charge, alors sort de la boucle
+      for (i=30; i>0; i--)   // Attendre 3s en verifiant que la charge n'est pas presente
+      {
+        delay(100); // Attendre 100ms
+        read_measurements();
+        if(weight_sensor != 1) {break;} // Si le capteur capte une charge, alors sort de la boucle
+      }
+      if(i == 0)
+      {
+        forward();   // Avance
+        delay(500);  // Attendre 0.5s
+        stop();      // Stop
+        read_measurements(); 
+        while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility)) // Tant que l'un des 3 capteur voit de la lumière
+        {
+          movements(); // Mets en movements le robot
+          read_measurements();
+        }
+        stop();
+        point = 0;
+      }
     }
-    if(i == 0)
-    forward();   // Avance
-    delay(500);  // Attendre 0.5s
-    stop();      // Stop
-    read_measurements(); 
-    while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility)) // Tant que l'un des 3 capteur voit de la lumière
-    {
-      movements(); // Mets en movements le robot
-      read_measurements();
-    }
-    stop();
-    point = 0;
   }
 }
 
@@ -113,9 +129,9 @@ void loop()
 void read_measurements()
 {
   weight_sensor = digitalRead(PIN_WS); // Lecture de la broche 3 (Capteur de masse)
-  middle_sensor = analogRead(PIN_MS); // Lecture de la broche A0 (Capteur d'intensité lumineuse)
-  right_sensor = analogRead(PIN_RS);  // Lecture de la broche A1 (Capteur d'intensité lumineuse)
-  left_sensor = analogRead(PIN_LS);   // Lecture de la broche A2 (Capteur d'intensité lumineuse)
+  left_sensor = analogRead(PIN_LS);   // Lecture de la broche 21 (Capteur d'intensité lumineuse)
+  middle_sensor = analogRead(PIN_MS); // Lecture de la broche 20 (Capteur d'intensité lumineuse)
+  right_sensor = analogRead(PIN_RS);  // Lecture de la broche 19 (Capteur d'intensité lumineuse)
   if(left_sensor<=sensibility){digitalWrite(LED_LS, HIGH);} else{digitalWrite(LED_LS, LOW);}
   if(middle_sensor<=sensibility){digitalWrite(LED_MS, HIGH);} else{digitalWrite(LED_MS, LOW);}
   if(right_sensor<=sensibility){digitalWrite(LED_RS, HIGH);} else{digitalWrite(LED_RS, LOW);}
@@ -126,13 +142,21 @@ void display_measurments()
 {
   Serial.print("Capteur masse  : ");  
   Serial.print(weight_sensor);
+  Serial.print("\nCapteur gauche  : ");  
+  Serial.print(left_sensor);
   Serial.print("\nCapteur milieu  : ");  
   Serial.print(middle_sensor);
   Serial.print("\nCapteur droit  : ");  
   Serial.print(right_sensor);
-  Serial.print("\nCapteur gauche  : ");  
-  Serial.print(left_sensor);
   Serial.print("\n\n");
+  delay(800);
+}
+
+// Sous programme : Affiche une variable au choix
+void display(unsigned int variable)
+{
+  Serial.print("\nValeur:");
+  Serial.print(variable);
 }
 
 // Sous programme : Mise en marche ou arrêt des PINs (moteurs) et ajustement de vitesse
