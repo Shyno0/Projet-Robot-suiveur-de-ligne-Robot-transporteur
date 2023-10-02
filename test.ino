@@ -14,9 +14,14 @@ void setup()
   //pinMode(ERROR_LED, OUTPUT);
 
   // Declare tous les PINs des capteurs en entrée
+  /*//anciens PINs
   pinMode(A0, INPUT); // Déclare Capteur Gauche
   pinMode(A1, INPUT); // Déclare Capteur Milieu
   pinMode(A2, INPUT); // Déclare Capteur Droit
+  //nouveaux PINs*/
+  pinMode(A5, INPUT); // Déclare Capteur Gauche
+  pinMode(A6, INPUT); // Déclare Capteur Milieu
+  pinMode(A7, INPUT); // Déclare Capteur Droit
   pinMode(3, INPUT); // Déclare Capteur de Masse
 
   // Declare tous les PINs des LEDs en sortie
@@ -36,11 +41,15 @@ void loop()
 
   for(i=50; i>0; i--)
   {
+    /*
+    //ancienne broches
     cg = analogRead(A0);
     cm = analogRead(A1);
-    cd = analogRead(A2);
-    /*Serial.print(cgadd);
-    Serial.print("\n\n");*/
+    cd = analogRead(A2);*/
+    //nouvelle meusures
+    cg = analogRead(A5);
+    cm = analogRead(A6);
+    cd = analogRead(A7);
     cmadd = cmadd+cm;
     cgadd = cgadd+cg;
     cdadd = cdadd+cd;
@@ -69,5 +78,5 @@ void loop()
   Serial.print("\nCapteur droit  : ");  
   Serial.print(cdadd);
   Serial.print("\n\n");
-  delay(200);
+  delay(500);
 }
