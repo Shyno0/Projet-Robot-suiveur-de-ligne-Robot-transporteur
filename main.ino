@@ -77,10 +77,18 @@ void loop()
         delay(500);  // Attendre 0.5s
         stop();      // Stop
         read_measurements(); 
-        while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) && (weight_sensor == 0)) // Tant que l'un des 3 capteur voit de la lumière + porte une charge
+        while(middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) // Tant que l'un des 3 capteur voit de la lumière
         {
-          movements(); // Mets en movements le robot
-          read_measurements();
+          if(weight_sensor != 0) // Si le capteur ne capte plus la charge, alors sort de la boucle
+          {
+            stop();
+            error_LED(0);
+          }
+          else
+          {
+            movements(); // Mets en movements le robot
+            read_measurements();
+          }
         }
         stop();
         while(weight_sensor == 0) // Tant que le capteur capte une charge
@@ -110,10 +118,18 @@ void loop()
         delay(500);  // Attendre 0.5s
         stop();      // Stop
         read_measurements(); 
-        while((middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility)) // Tant que l'un des 3 capteur voit de la lumière
+        while(middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) // Tant que l'un des 3 capteur voit de la lumière
         {
-          movements(); // Mets en movements le robot
-          read_measurements();
+          if(weight_sensor != 1) // Si le capteur capte une charge, alors sort de la boucle
+          {
+            stop();
+            error_LED(0);
+          }
+          else
+          {
+            movements(); // Mets en movements le robot
+            read_measurements();
+          }
         }
         stop();
         point = 0;
@@ -205,21 +221,21 @@ void movements()
   // Si détecte aucune lumière sur les 2 capteurs d'extermité mais seulment au milieu
   if(middle_sensor>sensibility && right_sensor<=sensibility && left_sensor<=sensibility)
   {
-    digitalWrite(ERROR_LED, LOW);
+    error_LED(0);
     forward();
   }
 
   // Si détecte de la lumière sur le capteur droit + milieu
   else if(middle_sensor>sensibility && left_sensor>sensibility && right_sensor<=sensibility)
   {
-    digitalWrite(ERROR_LED, LOW);
+    error_LED(0);
     turn_left();
   }
 
   // Si détecte de la lumière sur le capteur gauche + milieu
   else if(middle_sensor>sensibility && left_sensor<=sensibility && right_sensor>sensibility)
   {
-    digitalWrite(ERROR_LED, LOW);
+    error_LED(0);
     turn_right();
   }
 
@@ -227,8 +243,12 @@ void movements()
   else
   {
     stop();
-    digitalWrite(ERROR_LED, HIGH);
   }
 
   delay(100);
 }
+
+void error_LED(bool state)
+{
+  digitalWrite(ERROR_LED, state);
+} 
