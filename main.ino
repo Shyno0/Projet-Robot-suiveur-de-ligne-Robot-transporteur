@@ -280,12 +280,18 @@ void movements()
 // Sous programme : Defini l'état de la LED d'erreurs
 void error_LED(bool state)
 {
-  if(state != 0)
+  if(state == 1)
   {
-    digitalWrite(ERROR_LED, HIGH);
+    do
+    {
+      digitalWrite(ERROR_LED, HIGH);
+      delay(100);
+      digitalWrite(ERROR_LED, LOW);
+      delay(100);
+    }
   }
   else
   {
-    digitalWrite(ERROR_LED, state);
+    digitalWrite(ERROR_LED, LOW);
   }
 } 
