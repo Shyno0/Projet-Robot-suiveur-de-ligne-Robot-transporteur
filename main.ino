@@ -76,7 +76,7 @@ void loop()
       if(i == 0)
       {
         forward();   // Avance
-        delay(5000);  // Attendre 5s
+        delay(4000);  // Attendre 4s
         stop();      // Stop
         read_measurements(); 
         while(middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) // Tant que l'un des 3 capteur voit de la lumière
@@ -117,7 +117,7 @@ void loop()
       if(i == 0)
       {
         forward();   // Avance
-        delay(5000);  // Attendre 5s
+        delay(4000);  // Attendre 4s
         stop();      // Stop
         read_measurements(); 
         while(middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) // Tant que l'un des 3 capteur voit de la lumière
