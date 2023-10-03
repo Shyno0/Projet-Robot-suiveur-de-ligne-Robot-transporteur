@@ -29,12 +29,13 @@ bool point = 0; // Booléen - Valeur du point actuel (A ou B, 0 ou 1)
 bool weight_sensor; // Booléen - Valeur détecté par le capteur de masse
 unsigned char middle_sensor, left_sensor, right_sensor; // Variable de stockage des valeurs de luminosité détectés par les capteurs
 const unsigned char sensibility = 60; // Constante - Valeur de la sensibilité entre lumière/ombre
-unsigned char vel1, vel2 = 60;       // Constantes - Valeurs des vitesses prédéfinies
+unsigned char vel1 = 60, vel2, vel3;       // Constantes - Valeurs des vitesses prédéfinies
 char i; // Variable pour compteur
 
 void setup()
 {
-  vel1 = (vel2*1.2); // Defini la vitesse 2 en fonction de la vitesse 1 (prédefinie)
+  vel2 = (vel1*1.2); // Defini la vitesse 2 en fonction de la vitesse 1 (prédefinie)
+  vel3 = (vel1*1.3); // Defini la vitesse 2 en fonction de la vitesse 1 (prédefinie)
   
   //Tests (display)
   Serial.begin(9600);
@@ -198,15 +199,29 @@ void forward()
 void turn_left()
 {
   // Tourne à gauche
-  PIN_control(PIN_LM, vel2);
-  PIN_control(PIN_RM, vel1);
+  PIN_control(PIN_LM, vel1);
+  PIN_control(PIN_RM, vel2);
 }
 
 void turn_right()
 {
   // Tourne à droite
+  PIN_control(PIN_LM, vel2);
+  PIN_control(PIN_RM, vel1);
+}
+
+void turn_left2()
+{
+  // Tourne à gauche
   PIN_control(PIN_LM, vel1);
-  PIN_control(PIN_RM, vel2);
+  PIN_control(PIN_RM, vel3);
+}
+
+void turn_right2()
+{
+  // Tourne à droite
+  PIN_control(PIN_LM, vel3);
+  PIN_control(PIN_RM, vel1);
 }
 
 void stop()
@@ -220,24 +235,31 @@ void stop()
 void movements()
 {
   // Si détecte aucune lumière sur les 2 capteurs d'extermité mais seulment au milieu
-  if(middle_sensor>sensibility && right_sensor<=sensibility && left_sensor<=sensibility)
+  if(left_sensor<=sensibility && middle_sensor>sensibility && right_sensor<=sensibility)
   {
     error_LED(0);
     forward();
   }
 
-  // Si détecte de la lumière sur le capteur droit + milieu
-  else if(middle_sensor>sensibility && left_sensor>sensibility && right_sensor<=sensibility)
-  {
-    error_LED(0);
-    turn_left();
-  }
-
   // Si détecte de la lumière sur le capteur gauche + milieu
-  else if(middle_sensor>sensibility && left_sensor<=sensibility && right_sensor>sensibility)
+  else if(left_sensor<=sensibility && middle_sensor>sensibility && right_sensor>sensibility)
   {
     error_LED(0);
     turn_right();
+  }
+    
+  // Si détecte de la lumière sur le capteur gauche
+  else if(left_sensor>sensibility && middle_sensor<=sensibility && right_sensor<=sensibility)
+  {
+    error_LED(0);
+    turn_left2();
+  }
+
+  // Si détecte de la lumière sur le capteur droit
+  else if(left_sensor<=sensibility && middle_sensor<=sensibility && right_sensor>sensibility)
+  {
+    error_LED(0);
+    turn_right2();
   }
 
   // Sinon
