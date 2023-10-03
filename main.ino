@@ -84,7 +84,7 @@ void loop()
           if(weight_sensor != 0) // Si le capteur ne capte plus la charge, alors stoppe le robot
           {
             stop();
-            error_LED(0);
+            error_LED(0); // Fait clignoter la LED d'erreurs
           }
           else // Sinon
           {
@@ -125,7 +125,7 @@ void loop()
           if(weight_sensor == 0) // Si le capteur capte une charge, alors stoppe le robot
           {
             stop();
-            error_LED(0);
+            error_LED(0); // Fait clignoter la LED d'erreurs
           }
           else // Sinon
           {
