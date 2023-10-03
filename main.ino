@@ -85,7 +85,7 @@ void loop()
             stop();
             error_LED(0);
           }
-          else
+          else // Sinon
           {
             movements(); // Mets en movements le robot
           }
@@ -126,7 +126,7 @@ void loop()
             stop();
             error_LED(0);
           }
-          else
+          else // Sinon
           {
             movements(); // Mets en movements le robot
           }
