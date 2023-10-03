@@ -246,7 +246,7 @@ void movements()
     stop();
   }
 
-  delay(100);
+  delay(50);
 }
 
 // Sous programme : Defini l'état de la LED d'erreurs
