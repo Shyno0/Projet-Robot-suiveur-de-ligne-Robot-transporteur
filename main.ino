@@ -164,7 +164,6 @@ void display_measurments()
   Serial.print("\nCapteur droit  : ");  
   Serial.print(right_sensor);
   Serial.print("\n\n");
-  delay(800);
 }
 
 // Sous programme : Affiche une variable au choix
