@@ -29,7 +29,7 @@ bool point = 0; // Booléen - Valeur du point actuel (A ou B, 0 ou 1)
 bool weight_sensor; // Booléen - Valeur détecté par le capteur de masse
 unsigned char middle_sensor, left_sensor, right_sensor; // Variable de stockage des valeurs de luminosité détectés par les capteurs
 const unsigned char sensibility = 60; // Constante - Valeur de la sensibilité entre lumière/ombre
-unsigned char vel1, vel2 = 100;       // Constantes - Valeurs des vitesses prédéfinies
+unsigned char vel1, vel2 = 60;       // Constantes - Valeurs des vitesses prédéfinies
 char i; // Variable pour compteur
 
 void setup()
