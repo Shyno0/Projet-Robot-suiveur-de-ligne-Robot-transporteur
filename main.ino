@@ -249,6 +249,7 @@ void movements()
   delay(100);
 }
 
+// Sous programme : Defini l'état de la LED d'erreurs
 void error_LED(bool state)
 {
   digitalWrite(ERROR_LED, state);
