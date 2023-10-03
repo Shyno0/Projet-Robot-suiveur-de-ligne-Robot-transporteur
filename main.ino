@@ -282,16 +282,13 @@ void error_LED(bool state)
 {
   if(state == 1)
   {
-    do
-    {
-      digitalWrite(ERROR_LED, HIGH);
-      delay(100);
-      digitalWrite(ERROR_LED, LOW);
-      delay(100);
-    }
+    digitalWrite(LED_BUILTIN, HIGH);
+    sleep(100);
+    digitalWrite(LED_BUILTIN, LOW);
+    sleep(100);
   }
   else
   {
-    digitalWrite(ERROR_LED, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
   }
 } 
