@@ -34,7 +34,8 @@ char i; // Variable pour compteur
 
 void setup()
 {
-  vel1 = (vel2*1.2);
+  vel1 = (vel2*1.2); // Defini la vitesse 2 en fonction de la vitesse 1 (prédefinie)
+  
   //Tests (display)
   Serial.begin(9600);
   // Declare tous les PINs des moteurs en sortie
