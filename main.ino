@@ -244,6 +244,13 @@ void movements()
   else if(left_sensor>sensibility && middle_sensor>sensibility && right_sensor<=sensibility)
   {
     error_LED(0);
+    turn_left();
+  }
+
+  // Si détecte de la lumière sur le capteur droit + milieu
+  else if(left_sensor<=sensibility && middle_sensor>sensibility && right_sensor>sensibility)
+  {
+    error_LED(0);
     turn_right();
   }
     
