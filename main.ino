@@ -34,8 +34,8 @@ char i; // Variable pour compteur
 
 void setup()
 {
-  vel2 = (vel1*1.2); // Defini la vitesse 2 en fonction de la vitesse 1 et un multiplicateur (prédefinie)
-  vel3 = (vel1*1.3); // Defini la vitesse 3 en fonction de la vitesse 1 et un multiplicateur (prédefinie)
+  vel2 = (vel1*1.2); // Defini la vitesse 2 en fonction de la vitesse 1 (prédefinie) et un multiplicateur
+  vel3 = (vel1*1.3); // Defini la vitesse 3 en fonction de la vitesse 1 (prédefinie) et un multiplicateur
   
   //Tests (display)
   Serial.begin(9600);
