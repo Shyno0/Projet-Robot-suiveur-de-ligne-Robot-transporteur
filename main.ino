@@ -105,13 +105,13 @@ void loop()
   /*Le robot se deplace du point B au point A sans charge*/
   else if(point == 1) // Si le robot se trouve au point B
   {
-    if(weight_sensor == 1) // Si le capteur capte une charge
+    if(weight_sensor =! 0) // Si le capteur capte une charge
     {
       for (i=30; i>0; i--)   // Attendre 3s en verifiant que la charge n'est pas presente
       {
         delay(100); // Attendre 100ms
         read_measurements();
-        if(weight_sensor != 1) {break;} // Si le capteur capte une charge, alors stoppe le robot
+        if(weight_sensor == 0) {break;} // Si le capteur capte une charge, alors sort de la boucle
       }
       if(i == 0)
       {
@@ -121,7 +121,7 @@ void loop()
         read_measurements(); 
         while(middle_sensor<=sensibility || left_sensor<=sensibility || right_sensor<=sensibility) // Tant que l'un des 3 capteur voit de la lumière
         {
-          if(weight_sensor != 1) // Si le capteur capte une charge, alors sort de la boucle
+          if(weight_sensor == 0) // Si le capteur capte une charge, alors stoppe le robot
           {
             stop();
             error_LED(0);
