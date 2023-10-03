@@ -147,9 +147,9 @@ void read_measurements()
   left_sensor = analogRead(PIN_LS);   // Lecture de la broche 21 (Capteur d'intensité lumineuse)
   middle_sensor = analogRead(PIN_MS); // Lecture de la broche 20 (Capteur d'intensité lumineuse)
   right_sensor = analogRead(PIN_RS);  // Lecture de la broche 19 (Capteur d'intensité lumineuse)
-  if(left_sensor<=sensibility){digitalWrite(LED_LS, LOW);} else{digitalWrite(LED_LS, HIGH);}
-  if(middle_sensor<=sensibility){digitalWrite(LED_MS, LOW);} else{digitalWrite(LED_MS, HIGH);}
-  if(right_sensor<=sensibility){digitalWrite(LED_RS, LOW);} else{digitalWrite(LED_RS, HIGH);}
+  if(left_sensor>sensibility){digitalWrite(LED_LS, HIGH);} else{digitalWrite(LED_LS, LOW);}   // Si le capteur gauche détecte la bande noire alors allume la LED gauche, sinon elle reste eteinte
+  if(middle_sensor>sensibility){digitalWrite(LED_MS, HIGH);} else{digitalWrite(LED_MS, LOW);} // Si le capteur du milieu détecte la bande noire alors allume la LED du milieu, sinon elle reste eteinte
+  if(right_sensor>sensibility){digitalWrite(LED_RS, HIGH);} else{digitalWrite(LED_RS, LOW);}  // Si le capteur droit détecte la bande noire alors allume la LED droite, sinon elle reste eteinte
 }
 
 // Sous programme : Affichage des meusures (Capteurs)
