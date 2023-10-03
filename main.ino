@@ -30,7 +30,7 @@ bool weight_sensor; // Booléen - Valeur détecté par le capteur de masse
 unsigned char middle_sensor, left_sensor, right_sensor; // Variable de stockage des valeurs de luminosité détectés par les capteurs
 const unsigned char sensibility = 60;       // Constante - Valeur de la sensibilité entre lumière/ombre
 unsigned char vel1, vel2 = 150; // Constantes - Valeurs des vitesses prédéfinies
-char i; // Valeur pour compteur
+char i; // Variable pour compteur
 
 void setup()
 {
@@ -43,10 +43,10 @@ void setup()
   //pinMode(ERROR_LED, OUTPUT);
 
   // Declare tous les PINs des capteurs en entrée
+  pinMode(PIN_WS, INPUT); // Déclare Capteur de Masse
+  pinMode(PIN_LS, INPUT); // Déclare Capteur Gauche
   pinMode(PIN_MS, INPUT); // Déclare Capteur Milieu
   pinMode(PIN_RS, INPUT); // Déclare Capteur Droit
-  pinMode(PIN_LS, INPUT); // Déclare Capteur Gauche
-  pinMode(PIN_WS, INPUT); // Déclare Capteur de Masse
 
   // Declare tous les PINs des LEDs en sortie
   pinMode(LED_LS, OUTPUT);
@@ -59,7 +59,6 @@ void setup()
 void loop()
 {
   read_measurements(); // Lit toutes les mesures de tous les capteurs
-  display_measurments();
   
   /*Le robot se deplace du point A au point B avec une charge*/
   if(point == 0)
@@ -70,7 +69,6 @@ void loop()
       {
         delay(100); // Attendre 100ms
         read_measurements();
-        display(i);
         if(weight_sensor != 0) {break;} // Si le capteur ne capte plus la charge, alors sort de la boucle
       }
       if(i == 0)
@@ -83,7 +81,6 @@ void loop()
         {
           movements(); // Mets en movements le robot
           read_measurements();
-          display_measurments();
         }
         stop();
         while(weight_sensor == 0) // Tant que le capteur capte une charge
