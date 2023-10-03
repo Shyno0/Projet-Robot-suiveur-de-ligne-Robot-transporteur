@@ -87,8 +87,8 @@ void loop()
           else
           {
             movements(); // Mets en movements le robot
-            read_measurements();
           }
+          read_measurements();
         }
         stop();
         while(weight_sensor == 0) // Tant que le capteur capte une charge
@@ -128,8 +128,8 @@ void loop()
           else
           {
             movements(); // Mets en movements le robot
-            read_measurements();
           }
+          read_measurements();
         }
         stop();
         point = 0;
